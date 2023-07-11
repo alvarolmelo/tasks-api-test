@@ -6,7 +6,7 @@ import org.junit.BeforeClass;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
-public class APITest {
+public class ApisTest {
     
     @BeforeClass
     public static void setup(){
