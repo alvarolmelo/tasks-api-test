@@ -25,7 +25,7 @@ public class ApisTest {
     @Test
     public void deveAdicionarTarefaComSucesso(){
         RestAssured.given()
-            .body("{ \"task\": \"Teste via API\",\"dueDate\": \"2023-12-30\" }")
+            .body("{ \"task\": \"Teste via API\",\"dueDate\": \"2033-12-30\" }")
             .contentType(ContentType.JSON)
         .when()
             .post("/todo")
@@ -44,6 +44,27 @@ public class ApisTest {
             .statusCode(400)
             .body("message",CoreMatchers.is("Due date must not be in past"));
     }
+
+    @Test
+    public void deveRemoverTarefaComSucesso(){
+        Integer id = RestAssured.given()
+            .body("{ \"task\": \"Teste teste\",\"dueDate\": \"2033-12-30\" }")
+            .contentType(ContentType.JSON)
+        .when()
+            .post("/todo")
+        .then()
+            //.log().all()
+            .statusCode(201)
+            .extract().path("id");
+        System.out.println(id);
+
+        RestAssured.given()
+        .when()
+            .delete("/todo/"+id)
+        .then()
+            .statusCode(204);
+    }
+
 
 
 }
